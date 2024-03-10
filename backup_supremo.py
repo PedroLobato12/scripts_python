@@ -1,32 +1,40 @@
 import os
 import shutil
 
-# Solicitação manual dos caminhos de origem e destino
-origem = input("Digite o caminho de origem: ")
-destino = input("Digite o caminho de destino: ")
+while True:
+    # Mensagem inicial
+    print("Bem-vindo ao Backup Supremo!")
 
-try:
-    # Cria o diretório de destino se ainda não existir
-    os.makedirs(destino, exist_ok=True)
+    # Solicitação manual dos caminhos de origem e destino
+    origem = input("Digite o caminho de origem: ")
+    destino = input("Digite o caminho de destino: ")
 
-    # Percorre todos os arquivos e subdiretórios na origem
-    for pasta_atual, subpastas, arquivos in os.walk(origem):
-        # Calcula o caminho de destino correspondente
-        caminho_destino = os.path.join(destino, os.path.relpath(pasta_atual, origem))
-
+    try:
         # Cria o diretório de destino se ainda não existir
-        os.makedirs(caminho_destino, exist_ok=True)
+        os.makedirs(destino, exist_ok=True)
 
-        # Copia cada arquivo para o destino
-        for arquivo in arquivos:
-            caminho_origem = os.path.join(pasta_atual, arquivo)
-            caminho_destino_arquivo = os.path.join(caminho_destino, arquivo)
+        # Percorre todos os arquivos e subdiretórios na origem
+        for pasta_atual, subpastas, arquivos in os.walk(origem):
+            # Calcula o caminho de destino correspondente
+            caminho_destino = os.path.join(destino, os.path.relpath(pasta_atual, origem))
 
-            # Copia o arquivo, substituindo se já existir
-            shutil.copy2(caminho_origem, caminho_destino_arquivo)
+            # Cria o diretório de destino se ainda não existir
+            os.makedirs(caminho_destino, exist_ok=True)
 
-    print("Transferência de arquivos concluída com sucesso!")
-except Exception as e:
-    print(f"Erro durante a transferência: {e}")
+            # Copia cada arquivo para o destino
+            for arquivo in arquivos:
+                caminho_origem = os.path.join(pasta_atual, arquivo)
+                caminho_destino_arquivo = os.path.join(caminho_destino, arquivo)
 
-    input("Pressione qualquer tecla para sair...")
+                # Copia o arquivo, substituindo se já existir
+                shutil.copy2(caminho_origem, caminho_destino_arquivo)
+
+        print("Transferência de arquivos concluída com sucesso!")
+
+    except Exception as e:
+        print(f"Erro durante a transferência: {e}")
+
+    # Pergunta ao usuário se deseja fazer um novo backup
+    novo_backup = input("Deseja fazer um novo backup? (s/n): ")
+    if novo_backup.lower() != 's':
+        break  # Sai do loop se a resposta não for 's'
