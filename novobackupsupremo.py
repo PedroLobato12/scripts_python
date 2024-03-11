@@ -79,7 +79,7 @@ def selecionar_imagem_fundo():
     imagem_fundo_path = filedialog.askopenfilename(title="Selecione a Imagem de Fundo", filetypes=[("Imagens", "*.png;*.jpg;*.jpeg;*.gif")])
     if imagem_fundo_path:
         imagem_fundo = Image.open(imagem_fundo_path)
-        imagem_fundo = imagem_fundo.resize((800, 600))
+        imagem_fundo = imagem_fundo.resize((600, 500))
         imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
         background_label.configure(image=imagem_fundo)
         background_label.image = imagem_fundo
@@ -98,11 +98,12 @@ def iniciar_backup():
 # Criando a interface gráfica
 root = tk.Tk()
 root.title("Backup Supremo")
+root.geometry("600x500")
 
 # Configurando a imagem de fundo
 imagem_fundo_path = "D:\\Imagens\\Space-Art-Wallpaper-Sci-Fi-space-8070476-1600-1200.jpg"
 imagem_fundo = Image.open(imagem_fundo_path)
-imagem_fundo = imagem_fundo.resize((800, 600))
+imagem_fundo = imagem_fundo.resize((600, 500))
 imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
 background_label = tk.Label(root, image=imagem_fundo)
 background_label.place(relwidth=1, relheight=1)
@@ -112,48 +113,50 @@ escolha_var = tk.IntVar()
 escolha_var.set(1)  # Inicialmente configurado para enviar um arquivo
 
 # Botão de opção para escolher entre arquivo ou pasta
-opcao_arquivo = tk.Radiobutton(root, text="Arquivo", variable=escolha_var, value=1, background="white")
-opcao_pasta = tk.Radiobutton(root, text="Pasta", variable=escolha_var, value=2, background="white")
+opcao_arquivo = tk.Radiobutton(root, text="Arquivo", variable=escolha_var, value=1, background="lightgray")
+opcao_pasta = tk.Radiobutton(root, text="Pasta", variable=escolha_var, value=2, background="lightgray")
 
 # Posicionando as opções de arquivo e pasta no canto superior direito
-opcao_arquivo.place(relx=0.9, rely=0.1, anchor=tk.NE)
-opcao_pasta.place(relx=0.9, rely=0.15, anchor=tk.NE)
+opcao_arquivo.place(relx=0.85, rely=0.05, anchor=tk.NE)
+opcao_pasta.place(relx=0.85, rely=0.1, anchor=tk.NE)
+
+# Espaçamento
+tk.Label(root, text="", background="white").pack()
 
 # Widgets
 origem_label = tk.Label(root, text="Origem:", background="white")
 origem_label.pack()
 
-origem_entry = tk.Entry(root, width=50)
+origem_entry = tk.Entry(root, width=40)
 origem_entry.pack()
 
-origem_selecionar_button = tk.Button(root, text="Selecionar Origem", command=selecionar_origem)
+origem_selecionar_button = tk.Button(root, text="Selecionar Origem", command=selecionar_origem, background="lightblue")
 origem_selecionar_button.pack()
 
 destino_label = tk.Label(root, text="Destino:", background="white")
 destino_label.pack()
 
-destino_entry = tk.Entry(root, width=50)
+destino_entry = tk.Entry(root, width=40)
 destino_entry.pack()
 
-destino_selecionar_button = tk.Button(root, text="Selecionar Destino", command=selecionar_destino)
+destino_selecionar_button = tk.Button(root, text="Selecionar Destino", command=selecionar_destino, background="lightgreen")
 destino_selecionar_button.pack()
 
 arquivos_label = tk.Label(root, text="Arquivos na Origem:", background="white")
 arquivos_label.pack()
 
-arquivos_listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=10, width=50)
+arquivos_listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=5, width=40)
 arquivos_listbox.pack()
 
 tipos_arquivos_label = tk.Label(root, text="Tipos de Arquivos no Destino:", background="white")
 tipos_arquivos_label.pack()
 
-tipos_arquivos_listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=10, width=50)
+tipos_arquivos_listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=5, width=40)
 tipos_arquivos_listbox.pack()
 
-backup_button = tk.Button(root, text="Iniciar Backup", command=iniciar_backup)
+backup_button = tk.Button(root, text="Iniciar Backup", command=iniciar_backup, background="orange")
 backup_button.pack()
 
-# Mensagem de status
 status_label = tk.Label(root, text="", background="white")
 status_label.pack()
 
