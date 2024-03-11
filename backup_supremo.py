@@ -1,5 +1,53 @@
 import os
 import shutil
+import getpass
+import sys
+from PIL import Image, ImageTk
+import tkinter as tk
+from tkinter import ttk
+
+root = tk.Tk()
+root.title("Backup Supremo")
+
+# Convertendo a imagem para o formato suportado (PNG)
+imagem_original = Image.open("D:\\Imagens\\Formatura\\IMG_8921.jpg")
+imagem_original.save("D:\\Imagens\\Formatura\\IMG_8921.png")
+
+# Configurando uma imagem de fundo
+background_image = ImageTk.PhotoImage(file="D:\\Imagens\\Formatura\\IMG_8921.png")
+background_label = tk.Label(root, image=background_image)
+background_label.place(relwidth=1, relheight=1)
+
+# Resto do código para a interface
+label = ttk.Label(root, text="Bem-vindo ao Backup Supremo!", font=("Arial", 18))
+label.pack(pady=20)
+
+# Adicione seus outros widgets aqui...
+
+root.mainloop()
+
+
+
+senha_correta = "1515Pe@"
+
+# Número máximo de tentativas
+tentativas_maximas = 3
+
+for tentativa in range(1, tentativas_maximas + 1):
+    # Solicitação da senha
+    senha_usuario = input(f"Tentativa {tentativa}/{tentativas_maximas}. Digite a senha: ")
+
+    # Verifica se a senha está correta
+    if senha_usuario == senha_correta:
+        print("Senha correta! Continuando com o backup.")
+        break  # Sai do loop se a senha estiver correta
+    else:
+        print("Senha incorreta.")
+
+    # Se todas as tentativas falharem
+    if tentativa == tentativas_maximas:
+        print("Número máximo de tentativas atingido. Bloqueando o acesso.")
+        sys.exit(1)  # Sai do script com código de erro 1
 
 while True:
     # Mensagem inicial
